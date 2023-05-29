@@ -1,19 +1,22 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Polling;
 
-namespace MyTelegramBot.Services
+namespace MyTelegramBot
 {
     public class BotBackgroundService : BackgroundService
     {
-        private readonly ITelegramBotClient _client;
+        private readonly TelegramBotClient _client;
         private readonly ILogger<BotBackgroundService> _logger;
+        private readonly IUpdateHandler _handler;
 
         public BotBackgroundService(
             ILogger<BotBackgroundService> logger,
-            ITelegramBotClient client)
+            TelegramBotClient client,
+            IUpdateHandler handler)
         {
             _client = client;
             _logger = logger;
+            _handler = handler;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -22,10 +25,13 @@ namespace MyTelegramBot.Services
 
             _logger.LogInformation("Bot Started secsusfuly: {bot.Username}", bot.Username);
 
-            _client.StartReceiving<BotUpdateHandler>(new ReceiverOptions()
-            {
-                ThrowPendingUpdates = true
-            }, stoppingToken);
+            _client.StartReceiving(
+                _handler.HandleUpdateAsync,
+                _handler.HandlePollingErrorAsync,
+                new ReceiverOptions()
+                {
+                    ThrowPendingUpdates = true
+                }, stoppingToken);
         }
     }
 }
