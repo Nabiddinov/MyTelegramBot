@@ -16,8 +16,15 @@ namespace MyTelegramBot
             builder.Services.AddHostedService<BotBackgroundService>();
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
 
-
             var app = builder.Build();
+
+            var supportedCultures = new[] { "uz-Uz", "en-Us", "ru-Ru" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+            app.UseRequestLocalization(localizationOptions);
+
+
 
             app.Run();
         }

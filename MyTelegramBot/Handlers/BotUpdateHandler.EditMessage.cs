@@ -10,7 +10,8 @@ namespace MyTelegramBot
             ArgumentNullException.ThrowIfNull(message);
 
             var from = message.From;
-            _logger.LogInformation("Received Edit Message {from.FirstName}: {message.Text}", from?.FirstName,message.Text);
+            _logger.LogInformation("Received Edit Message {from.FirstName}: {message.Text}",
+                from?.FirstName, message.Text);
         }
     }
 }

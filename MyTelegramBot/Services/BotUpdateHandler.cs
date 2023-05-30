@@ -16,7 +16,7 @@ namespace MyTelegramBot
 
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-          _logger.LogInformation("Error occured with Telegram Bot : {e.Message} ", exception);
+            _logger.LogInformation("Error occured with Telegram Bot : {e.Message} ", exception);
 
             return Task.CompletedTask;
         }
@@ -27,8 +27,7 @@ namespace MyTelegramBot
             {
                 UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
                 UpdateType.EditedMessage => HandleEditMessageAsync(botClient, update.EditedMessage, cancellationToken),
-                _=> HandleUnknownUpdate(botClient, update, cancellationToken)
-
+                _ => HandleUnknownUpdate(botClient, update, cancellationToken)
             };
 
             try
@@ -37,15 +36,13 @@ namespace MyTelegramBot
             }
             catch (Exception e)
             {
-
                 await HandlePollingErrorAsync(botClient, e, cancellationToken);
             }
-
         }
 
         private Task HandleUnknownUpdate(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-           _logger.LogInformation("Update type {update.Type} received ", update.Type);
+            _logger.LogInformation("Update type {update.Type} received ", update.Type);
 
             return Task.CompletedTask;
         }
