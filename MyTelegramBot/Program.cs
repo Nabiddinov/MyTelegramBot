@@ -15,6 +15,8 @@ namespace MyTelegramBot
             builder.Services.AddSingleton(P => new TelegramBotClient(token));
             builder.Services.AddHostedService<BotBackgroundService>();
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
+            builder.Services.AddLocalization();
+
 
             var app = builder.Build();
 
@@ -23,6 +25,8 @@ namespace MyTelegramBot
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
+
+
 
 
 

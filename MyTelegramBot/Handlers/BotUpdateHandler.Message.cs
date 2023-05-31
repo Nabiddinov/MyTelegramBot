@@ -24,7 +24,7 @@ namespace MyTelegramBot
 
         private Task HandleUnknownMessageAsync(ITelegramBotClient client, Message message, CancellationToken token)
         {
-           _logger.LogInformation("Received message type : {message.Type}", message.Type);
+            _logger.LogInformation("Received message type : {message.Type}", message.Type);
 
             return Task.CompletedTask;
         }
@@ -36,7 +36,7 @@ namespace MyTelegramBot
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text:"Thank you!",
+                text: _localizer["greeting"],
                 replyToMessageId: message.MessageId,
                 cancellationToken: token);
         }
