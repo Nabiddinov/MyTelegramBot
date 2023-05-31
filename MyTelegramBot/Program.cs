@@ -17,7 +17,6 @@ namespace MyTelegramBot
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
             builder.Services.AddLocalization();
 
-
             var app = builder.Build();
 
             var supportedCultures = new[] { "uz-Uz", "en-Us", "ru-Ru" };
@@ -25,10 +24,6 @@ namespace MyTelegramBot
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);
-
-
-
-
 
             app.Run();
         }
