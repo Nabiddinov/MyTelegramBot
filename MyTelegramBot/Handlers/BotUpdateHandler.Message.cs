@@ -36,7 +36,7 @@ namespace MyTelegramBot
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: _localizer["greeting"],
+                text: _localizer["choose-language"],
                 replyToMessageId: message.MessageId,
                 cancellationToken: token);
         }

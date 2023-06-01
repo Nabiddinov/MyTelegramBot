@@ -20,7 +20,8 @@ namespace MyTelegramBot
             var app = builder.Build();
 
             var supportedCultures = new[] { "uz-Uz", "en-Us", "ru-Ru" };
-            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            var localizationOptions = new RequestLocalizationOptions()
+                .SetDefaultCulture(supportedCultures[0])
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
             app.UseRequestLocalization(localizationOptions);

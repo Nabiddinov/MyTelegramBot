@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using System.Globalization;
+using Microsoft.Extensions.Localization;
+using MyTelegramBot.Resources;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -29,8 +31,14 @@ namespace MyTelegramBot
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            var culture = new CultureInfo("uz-Uz");
+
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+
             using var scope = _scopeFactory.CreateScope();
-            _localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer>();
+            _localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
+
             var handler = update.Type switch
             {
                 UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
