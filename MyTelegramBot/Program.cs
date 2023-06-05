@@ -1,3 +1,4 @@
+using MyTelegramBot.Services;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
@@ -15,6 +16,8 @@ namespace MyTelegramBot
             builder.Services.AddSingleton(P => new TelegramBotClient(token));
             builder.Services.AddHostedService<BotBackgroundService>();
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
+            builder.Services.AddScoped<UserService>();
+
             builder.Services.AddLocalization();
 
             var app = builder.Build();
