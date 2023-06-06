@@ -6,6 +6,7 @@ namespace MyTelegramBot.Services
     {
         public UserService()
         {
+
         }
 
         public async Task<User> GetUserAsync(long accountId)

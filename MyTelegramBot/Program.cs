@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using MyTelegramBot.Data;
 using MyTelegramBot.Services;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
@@ -9,6 +11,9 @@ namespace MyTelegramBot
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<BotDbContext>(
+                options => options.UseNpgsql(builder.Configuration.GetConnectionString("BotConnection")));
 
             var token = builder.Configuration.GetValue("BotToken", string.Empty);
 
