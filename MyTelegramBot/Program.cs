@@ -17,8 +17,8 @@ namespace MyTelegramBot
             builder.Services.AddHostedService<BotBackgroundService>();
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
             builder.Services.AddScoped<UserService>();
-
             builder.Services.AddLocalization();
+
 
             var app = builder.Build();
 
