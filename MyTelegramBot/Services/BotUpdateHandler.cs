@@ -34,10 +34,14 @@ namespace MyTelegramBot
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             using var scope = _scopeFactory.CreateScope();
-            _localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
+
             _userService = scope.ServiceProvider.GetRequiredService<UserService>();
 
-            await SetCaltureForUser(update);
+            var culture = await GetCaltureForUser(update);
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+
+            _localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<BotLocalizer>>();
 
             var handler = update.Type switch
             {
@@ -56,7 +60,7 @@ namespace MyTelegramBot
             }
         }
 
-        private async Task SetCaltureForUser(Update update)
+        private async Task<CultureInfo> GetCaltureForUser(Update update)
         {
             User? from = update.Type switch
             {
@@ -68,11 +72,7 @@ namespace MyTelegramBot
             };
 
             var user = await _userService.GetUserAsync(from.Id);
-
-            var culture = new CultureInfo(user?.LanguageCode?? "uz-Uz");
-
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
+            return new CultureInfo(user?.LanguageCode??"uz-Uz");
         }
 
         private Task HandleUnknownUpdate(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
