@@ -72,7 +72,7 @@ namespace MyTelegramBot
             };
 
             var user = await _userService.GetUserAsync(from.Id);
-            return new CultureInfo(user?.LanguageCode??"uz-Uz");
+            return new CultureInfo(user?.LanguageCode ?? "uz-Uz");
         }
 
         private Task HandleUnknownUpdate(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
