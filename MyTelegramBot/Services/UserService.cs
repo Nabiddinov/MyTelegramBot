@@ -17,9 +17,7 @@ namespace MyTelegramBot.Services
             ArgumentNullException.ThrowIfNull((userId));
             ArgumentNullException.ThrowIfNull(_context.Users);
 
-
             return await _context.Users.FindAsync(userId);
-
         }
 
         public async Task<(bool isSucsess, string ErrorMessage)> UpdateLanguageCodeAsync(long? userId, string LanguageCode)
@@ -38,13 +36,11 @@ namespace MyTelegramBot.Services
             return (true, null);
         }
 
-
         public async Task<string?> GetLanguageCodeAsync(long? userId)
         {
             var user = await GetUserAsync(userId);
 
             return user?.LanguageCode;
         }
-
     }
 }

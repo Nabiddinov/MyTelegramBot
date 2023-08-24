@@ -24,7 +24,6 @@ namespace MyTelegramBot
             builder.Services.AddScoped<UserService>();
             builder.Services.AddLocalization();
 
-
             var app = builder.Build();
 
             var supportedCultures = new[] { "uz-Uz", "en-Us", "ru-Ru" };
